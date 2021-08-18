@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+  <script>
+    //----------Example Closure Creating a Function----------
+    //Closures--the ability to access a parent level scope from a child scope even
+    //after that parent function has been terminated
+
+    //child access higher level parent scope even after the function has be
+    //called or closed
+
+
+    function outer() {
+      const outerVar = 'Hey I am the outer Var!';
+      function inner() {
+        const innerVar = 'Hey I am the inner Var!';
+        console.log(innerVar);
+        console.log(outerVar);
+      }
+      // inner();
+      return inner;
+    }
+    // outer();
+    //Here you can stick a function into a variable, and at a later time you
+    //have access to that inner function
+    const innerFn = outer();
+    innerFn(); //this is a closure,
+    //and it is an example of a closure creating a function
+
+    // so the outer function is run and remains in memory closed
+    //but we can access it by putting it in a variale and use it at a
+    //later time.
+
+    //This is helpful in the following ways
+
+
+
+
+
+    //----------Example Closure Creating Private Variables----------
+    function createGreeting(greeting = '') {
+      const myGreet = greeting.toUpperCase();
+      return function (name) {
+        return `${myGreet} ${name}`; // here our inner scope references
+        //a variable that is in our outer scope 'myGreet'
+      }
+    }
+    const sayHello = createGreeting('Hello');
+    const sayHey = createGreeting('Hi');
+    console.log(sayHello('wes'));
+    console.log(sayHello('kate'));
+    console.log(sayHey('kate'));
+
+
+    function createGame(gameName) {
+      let score = 0;
+      return function win() {
+        score++;
+        return `Your name ${gameName} score is ${score}`;
+      }
+    }
+    //This is helpful because the inner function
+    //increments each time the game is run and since it is
+    //an inner function  you can creat multiple games for this fucntion
+    //and the increments are seperate between games.
+    const hockeyGame = createGame('Hockey');
+    const soccerGame = createGame('Soccer');
+    //Essentially each of these has their own private variable called score
+
+  </script>
+</body>
+
+</html>

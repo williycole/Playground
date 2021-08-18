@@ -1,0 +1,17 @@
+{
+  "name": "nodejscrashcourse",
+  "version": "1.0.0",
+  "description": "Node crash course, the package.json is for storing all your depenencies for your project, for example when you type npm install uuid the package below this was installed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cole Boren",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
