@@ -8,7 +8,6 @@ public class Spring5introApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Spring5introApplication.class, args);
-		System.out.println("hello world");
 	}
 
 }

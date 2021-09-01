@@ -1,15 +1,16 @@
 package com.springgurucourse.spring5intro.Entites;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /*
  * Usually JPAs go in a Model, Domain or Entities package
  * @Entity: lets JPA know this is an Entity
  * */
 @Entity
-public class Book {
+public class Publisher {
     /*
      * NOTE: Persistence annotations not spring annotations
      * @Id: Entities need to have an Id and Hibernate needs to know how it is getting generated
@@ -22,24 +23,21 @@ public class Book {
      *
      * @JoinTable, joinColumns, & @JoinColumn: for building tables in a database
      * */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String title;
-    private String isbn;
-    @ManyToMany
-    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> author = new HashSet<>();
+    private String name;
+    private String address;
 
-    public Book() {
+    public Publisher() {
         // JPA does require a zero args constructor as well
     }
 
-    public Book(String title, String isbn) {
-        this.title = title;
-        this.isbn = isbn;
+    public Publisher(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 
     public Long getId() {
@@ -50,42 +48,30 @@ public class Book {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getAddress() {
+        return address;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Set<Author> getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Set<Author> author) {
-        this.author = author;
-    }
-
-    /*
-     * Override Equals and Hash Code methods to identify it with a database record
-     * ie two objects with the same Id will have equality
-     * */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Book book = (Book) o;
+        Publisher publisher = (Publisher) o;
 
-        return id != null ? id.equals(book.id) : book.id == null;
+        return id != null ? id.equals(publisher.id) : publisher.id == null;
     }
 
     @Override
@@ -95,11 +81,10 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Publisher{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", author=" + author +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
