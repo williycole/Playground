@@ -1,2 +1,1 @@
-# Python_Playground
- Playground for all things related to python
+# Playground for all learning/tinkering with python. 
