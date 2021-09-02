@@ -1,9 +1,8 @@
 package com.springgurucourse.spring5intro.Entites;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * Usually JPAs go in a Model, Domain or Entities package
@@ -29,15 +28,30 @@ public class Publisher {
     private Long id;
 
     private String name;
-    private String address;
+    private String addressline1;
+    private String city;
+    private String state;
+    private String zip;
+
+    /*
+     * meaning the publisher is one and it has many books
+     */
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() {
         // JPA does require a zero args constructor as well
     }
 
-    public Publisher(String name, String address) {
+    public Publisher(Long id, String name, String addressline1, String city, String state, String zip, Set<Book> books) {
+        this.id = id;
         this.name = name;
-        this.address = address;
+        this.addressline1 = addressline1;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.books = books;
     }
 
     public Long getId() {
@@ -56,12 +70,44 @@ public class Publisher {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressline1() {
+        return addressline1;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressline1(String addressline1) {
+        this.addressline1 = addressline1;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     @Override
@@ -84,7 +130,11 @@ public class Publisher {
         return "Publisher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
+                ", addressline1='" + addressline1 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", books=" + books +
                 '}';
     }
 }
