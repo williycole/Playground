@@ -1,1 +1,1 @@
-# Course work done while completing Frontend Masters Practical Guide to Python Course. 
+# Course work done while completing Frontend Masters Practical Introduction to Python Course. 
