@@ -1,3 +1,5 @@
+/*eslint-env node*/
+/*eslint-disable */
 const mongoose = require('mongoose')
 
 const authorSchema = new mongoose.Schema({
