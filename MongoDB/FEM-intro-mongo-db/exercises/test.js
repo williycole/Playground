@@ -19,20 +19,28 @@ const connect  = () => {
 const student = new mongoose.Schema({
     firstName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
+    faveFoods: [{type: String}],
     info: {
-        school: {
-            type: String,
-            required: true
+        school:{
+            type: String
         },
-        faveFoods: [{type: String}],
+        },
         shoeSize: {
             type: Number,
-            required: true
-        }
+        },
+        school: {// you can also nest models inside eachother like this
+            type: mongoose.Schema.Types.ObjectId,
+            required: true, //Reference for the school colletions
+            ref: 'school'
     }
-});
+}, {timestamps: true});
+
+const school = new mongoose.Schema({
+    name: String,
+})
 
 /**
  * STEP 3:
@@ -44,6 +52,7 @@ const student = new mongoose.Schema({
  * Models begin with
  * a Capital letter.
  */
+const School = mongoose.model('school', school)
 const Student = mongoose.model('student', student);
 
 /**
@@ -53,13 +62,23 @@ const Student = mongoose.model('student', student);
  */
 connect()
     .then(async connection => {
-        const student = await Student.create({firstName: 'Cole'});
+        const school = await School.findOneAndUpdate({name: 'Frontend Masters'},
+        {name: 'Frontend Masters'},
+        {upsert: true})// upsert either finds and updates but if it doesn't find anything it creates
+        .exec()
+        const student = await Student.create({firstName: 'Madisonzz', school: school._id});
+        const student2 = await Student.create({firstName: 'Colezz', school: school._id});
+        // for referencing the school within the student and .populate() makes it a school object, this is a virtual join table
+        const match = await Students.findAllById(student.id)
+            .populate('school').exec()
         /*
         * Note what is being logged out here is not a JS Object, its a Mongoose Document
         * sometimes this is not desirable and you can convert it to JSON
         * Note you can also run various queries on your data like
         * Student.find()
         */
-        console.log(student);
+        // console.log(student);
+        console.log(match);
+        console.log(school);
     })
     .catch(e => console.error(e));
