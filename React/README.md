@@ -1,1 +1,1 @@
-# Course work done will completeing FEM Intro to React v6 course. 
+# Catch all for all tinkering and learning with React. 
