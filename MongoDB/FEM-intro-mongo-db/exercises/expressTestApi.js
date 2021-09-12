@@ -32,14 +32,18 @@ app.use(json())
  * */
 // -->@Controller (GET)
 app.get('/note', async (req, res) => {
-    // here we will query all the notes so its async and use find({})
-    const notes = await Note.find({})
-    // pagenations in mongo is easily handled with .sort(), skip(), and .limit()
-    // to take some heavy lifting off mongoose when needed --> means just give me the json
-    .lean() // .lean() only works for queries
-    .exec()
-    // for express we then set the status code to 200 and send back some json
-    res.status(200).json(notes)
+    try{
+        // here we will query all the notes so its async and use find({})
+        const notes = await Note.find({})
+        // pagenations in mongo is easily handled with .sort(), skip(), and .limit()
+        // to take some heavy lifting off mongoose when needed --> means just give me the json
+        .lean() // .lean() only works for queries
+        .exec()
+        // for express we then set the status code to 200 and send back some json
+        res.status(200).json(notes)
+    }catch (e) {
+        res.status(500).send()
+    }
 })
 // -->@Controller (POST)
 app.post('/note', async (req, res) => {
