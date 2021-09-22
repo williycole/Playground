@@ -1,6 +1,6 @@
 import unittest
 
-from Projects.MiscPuzzles.Classes.dict_to_list import dict_to_list
+from Projects.puzzle_playground.puzzles.dict_to_list import dict_to_list
 
 
 class MyTestCase(unittest.TestCase):
