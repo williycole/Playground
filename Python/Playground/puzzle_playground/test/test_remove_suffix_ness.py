@@ -1,6 +1,6 @@
 import unittest
 
-from Projects.puzzle_playground.puzzles.remove_suffix_ness import remove_suffix_ness
+from puzzle_playground.puzzles.remove_suffix_ness import remove_suffix_ness
 
 
 class MyTestCase(unittest.TestCase):

@@ -32,7 +32,6 @@
 # Narrow down by each three types consecutively
 
 # ==================================Program ============================================
-import ReadCsvAndTxtFiles
 import GetAndCompareDnaData
 
 GetAndCompareDnaData.GetAndCompareDnaData.get_and_compare_data()

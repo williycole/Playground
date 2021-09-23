@@ -1,6 +1,5 @@
 import ReadCsvAndTxtFiles
 import re
-import operator
 
 
 class GetAndCompareDnaData:
