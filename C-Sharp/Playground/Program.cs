@@ -1,21 +1,11 @@
-﻿using System;
-using static DoesContainDuplicates;
-
+﻿using static SmallestValue;
 namespace Puzzles
 {
     class Program
     {
         static void Main(string[] args)
         {
-        IsIsogram("Dermatoglyphics");
-        IsIsogram("isogram");
-        IsIsogram("moose");
-        IsIsogram("isIsogram");
-        IsIsogram("aba");
-        IsIsogram("moOse");
-        IsIsogram("thumbscrewjapingly");
-        IsIsogram("");
-        IsIsogram("boot");
+            GetSmallestValue(new int[] {2,3,4,1}, "Index");
         }
     }
 }
