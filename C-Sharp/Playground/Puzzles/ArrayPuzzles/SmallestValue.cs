@@ -9,13 +9,13 @@ Assume the second parameter will be a string holding one of two values: 'value' 
 */
 public class SmallestValue
 {
-  public static int GetSmallestValue(int[] arr, string valOrIndex)
+  public static int GetSmallestValue(int[] arr, string valueOrIndex)
   {
     // Smallest Value
-    int res = arr.Min();
+    int smallest = arr.Min();
+    int result = valueOrIndex == "Value" ? smallest : Array.IndexOf(arr, smallest);
 
-    Console.WriteLine(valOrIndex == "value" ? res : Array.IndexOf(arr, res));
-    return valOrIndex == "value" ? res : Array.IndexOf(arr, res);
-
+    Console.WriteLine(result);
+    return result;
   }
 }
