@@ -52,8 +52,7 @@ namespace GradeBook
             Console.WriteLine($"Average is: {stats.Average:N3}");
             Console.WriteLine($"Highest Grade is: {stats.High}");
             Console.WriteLine($"Lowest Grade is: {stats.Low}");
-
-
+            GetStatistics(); 
         }
     }
 }
