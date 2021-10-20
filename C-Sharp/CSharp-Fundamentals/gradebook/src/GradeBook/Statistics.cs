@@ -1,3 +1,5 @@
+using System;
+
 namespace GradeBook
 {
     public class Statistics
@@ -7,5 +9,9 @@ namespace GradeBook
         public double Low;
         public char Letter;
 
+        internal void Add(double number)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

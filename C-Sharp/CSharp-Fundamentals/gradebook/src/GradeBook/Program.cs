@@ -7,6 +7,7 @@ namespace GradeBook
         {
             /*
             ⭐⭐⭐ NOTES about Implicit Typing in C# ⭐⭐⭐
+            🌟 ((ASP.Net Core is for serverside and Web development))
                 ⭐NOTE--> Implicit typing does not work with fields
             📌  vars in C# are implicitly infered but you can't change the type like you could in JS
                 var x = 34.1;
@@ -37,21 +38,31 @@ namespace GradeBook
                     lowGrade = Math.Min(number, lowGrade);
                     result += number;
                 }
-            📌  result = result / grades.Count; same as below
+             📌 result = result / grades.Count; same as below
                 result /= grades.Count;
-            📌  :N3 is a format specifier -> 3 digits after the decimal
+             📌 :N3 is a format specifier -> 3 digits after the decimal
                 Console.WriteLine($"The average grade is {result:N3}, highest grade is, {highGrade} lowest grade is {lowGrade}");
             */
 
-            var book = new Book("Coles Grade Book");
-            // book.AddGrade(89.1);
-            // book.AddGrade(90.5);
-            // book.AddGrade(77.5);
-            while(true)
+            var book = new InMemoryBook("Coles Grade Book");
+            // 🌟📌 Event Delegate
+            book.GradeAdded += OnGradeAdded;
+            EnterGrades(book);
+            var stats = book.GetStatistics();
+            Console.WriteLine($"For the book named {book.Name}");
+            Console.WriteLine($"Average is: {stats.Average:N3}");
+            Console.WriteLine($"Highest Grade is: {stats.High}");
+            Console.WriteLine($"Lowest Grade is: {stats.Low}");
+        }
+
+
+        private static void EnterGrades(IBook book)
+        {
+            while (true)
             {
-                Console.WriteLine("Enter a grade or 'q' to quit." );
+                Console.WriteLine("Enter a grade or 'q' to quit.");
                 var input = Console.ReadLine();
-                if(input == "q")
+                if (input == "q")
                 {
                     break;
                 }
@@ -66,11 +77,12 @@ namespace GradeBook
                     Console.WriteLine(ex.Message);
                 }
             }
-            var stats = book.GetStatistics();
-            Console.WriteLine($"For the book named {book.Name}");
-            Console.WriteLine($"Average is: {stats.Average:N3}");
-            Console.WriteLine($"Highest Grade is: {stats.High}");
-            Console.WriteLine($"Lowest Grade is: {stats.Low}");
+        }
+
+        // 🌟📌 Event Delegate
+        static void OnGradeAdded(object sender, EventArgs e)
+        {
+            Console.WriteLine("A grade was added..\n");
         }
     }
 }

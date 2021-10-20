@@ -1,47 +1,49 @@
 using System;
 using System.Collections.Generic;
+/*
+⭐ ((Pillers of OOP))
+📌 🌟 Encapsulation --> hide details about our code
+📌 Inheritance --> reuse code accrose similar classes
+📌 Polymorphisim --> objects of the same type that behave differently
+*/
 namespace GradeBook
 {
-    public class Book
+    // 🌟📌 Delegate
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
+    // ⭐ ((Base Classes))
+    public abstract class Book : NamedObject, IBook
     {
-        // 📌Fields: in fields default is private but its helpful to not be implicit here
+        // ⭐ ((Derived from Base Class)) {NamedObject handles the getter and setter for Name}
+        protected Book(string name) : base(name){ /*NoArgs Constructor*/ }
+        public abstract event GradeAddedDelegate GradeAdded;
+        public abstract void AddGrade(double grade);
+        public abstract Statistics GetStatistics();
+    }
+
+
+
+    public class InMemoryBook : Book
+    {
+        // ⭐ ((Fields)) 📌 {fields default is private but its helpful to not be implicit here}
         private List<double> grades;
-        private string name;
-
-        // 📌 in C# .NET  the convention for a public members is to use and uppercase,
-        public string Name
+         /*
+        ⭐ ((Events)) {and example of using delegates}
+        📌 🌟object is the base type for everything in {.Net}
+        📌 🌟 Event Delegate Standards {(first param) who is sending, (second param) event args}
+        🌟 Public member of the book class for the delegates
+        */
+        public override event GradeAddedDelegate GradeAdded;
+        //⭐ ((Constructor)) 📌 {here we use base name to pass our name to the NamedObject constructor that requries a Name}
+        public InMemoryBook(string name) : base(name)
         {
-            // 📌 Properties, [getters, setters -> (the short and long way)]
-            get; set;
-            // 📌 can allso make them briave
-            // private set;
-            /*
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if(!String.IsNullOrEmpty(value))
-                {
-                    name = value;
-                }
-            }
-            */
-        }
-
-
-        // 📌Constructor
-        public Book(string name)
-        {
-            // 📌 in C# .NET  the convention for a public members is to use and uppercase, this lets you do away with "this.name = name " in the constructor
+            // 📌 in C# .NET the convention for a public members is to use and uppercase, this lets you do away with "this.name = name " in the constructor
             Name = name;
             grades = new List<double>();
         }
-        /*
-        ⭐  📌 Basic switch statements in C#
-            📌 Method overloading example
-        */
+
+        // ⭐ ((Basic switch statements in C#)) 📌 {Method overloading example}
+
         public void AddGrade(char letter)
         {
             switch (letter)
@@ -61,20 +63,25 @@ namespace GradeBook
             }
         }
 
-        // 📌Class Methods
-        public void AddGrade(double grade)
+        // ⭐ ((Class Methods))
+        public override void AddGrade(double grade)
         {
             if(grade <= 100 && grade >= 0)
             {
                 grades.Add(grade);
+                if( GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {
-                // throw new ArgumentException($"Invalid {nameof(grade)}");
                 throw new ArgumentException($"Invalid {nameof(grade)}");
             }
         }
-        public Statistics GetStatistics()
+
+
+        public override Statistics GetStatistics()
         {
             var result = new Statistics();
             result.Average = 0.0;
@@ -87,9 +94,8 @@ namespace GradeBook
                 result.Average += grade;
             }
             result.Average /= grades.Count;
-            /*
-            ⭐ 📌C# Enhanced Switch Statments -> "Pattern Matching"
-            */
+
+            // ⭐ ((C# Enhanced Switch Statments)) 📌 {have "Pattern Matching"}
             switch (result.Average)
             {
                 case var d when d >= 90.0:

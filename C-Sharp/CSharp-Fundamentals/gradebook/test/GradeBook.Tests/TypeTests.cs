@@ -4,9 +4,16 @@ using Xunit;
 namespace GradeBook.Tests
 {
     /*
-    ⭐ Delegates Example
-    📌 Delegates give you the ability to declare a variable that you can use like a method,
-       its a variable that you can invoke and pass parameters
+    ⭐ ((Delegates))
+    📌 Essentially you can store methods in variables to pass as parameters to other methods
+
+    ⭐ (DEFINITION)
+    📌  delegate is a type that represents references to methods with a particular parameter list and return type.
+         When you instantiate a delegate, you can associate its instance with any method with a compatible signature and
+         return type. You can invoke (or call) the method through the delegate instance.
+    📌  Delegates are used to pass methods as arguments to other methods. Event handlers are nothing more than methods that are
+         invoked through delegates. You create a custom method, and a class such as a windows control can call your method when
+         a certain event occurs. The following example shows a delegate declaration:
     */
     public delegate string WriteLogDelegate(string logMessage);
     public class TypeTests
@@ -65,9 +72,9 @@ namespace GradeBook.Tests
 
             Assert.Equal("New Name", book1.Name);
         }
-        private void GetBookSetNameRef(ref Book book, string name)
+        private void GetBookSetNameRef(ref InMemoryBook book, string name)
         {
-            book = new Book(name);
+            book = new InMemoryBook(name);
         }
 
 
@@ -80,7 +87,7 @@ namespace GradeBook.Tests
 
             Assert.Equal("New Name", book1.Name);
         }
-        private void SetName(Book book, string name)
+        private void SetName(InMemoryBook book, string name)
         {
             book.Name = name;
         }
@@ -108,9 +115,9 @@ namespace GradeBook.Tests
             Assert.Same(book1, book2);
             Assert.True(Object.ReferenceEquals(book1, book2));
         }
-           Book GetBook(string name)
+           InMemoryBook GetBook(string name)
         {
-            return new Book(name);
+            return new InMemoryBook(name);
         }
     }
 }

@@ -7,17 +7,19 @@ namespace GradeBook.Tests
     {
         /*
         ⭐⭐NOTES References VS Values⭐⭐
-         📌 Reference Types are pointers to where a variable(or other) lives on your computer.
-         ex --> var b = new Book("Grades);
+         ⭐ ((Reference Types))
+         📌 are pointers to where a variable(or other) lives on your computer.
+            ex --> var b = new Book("Grades);
 
-         📌 Value Types are stored directly in a variable(there is no reference)
+         ⭐ ((Value Types))
+         📌 are stored directly in a variable(there is no reference)
          ex var x = 3;
         */
         [Fact]
         public void BookCalculatesAnAverageGrades()
         {
             // Arrange
-            var book = new Book("Coles Book");
+            var book = new InMemoryBook("Coles Book");
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.3);
