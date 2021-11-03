@@ -4,27 +4,22 @@ using System.Collections.Generic;
 
 namespace Misc
 {
-    class Program
+    class IEnumerableProgram
     {
         /*
          * Enumeration: basically means go into a list and do something with every item in a list
          * enumerators work just like foreach or for loop but they do not have access to link, they
          * 
-         * When to Use: when your collection is a massive database table.
+         * USE: when your collection is a massive database table -> lets you load and work with data
+         * piece wise instead of load and work with all the data at once
+         * 
+         * DON'T USE: when you need the results right away or are possibly mutating/editing the
+         * objects later on, instead use a List or an Array
          * 
          * Example: say you have a data base of 1000 entries and can only grab 100 at a time, an enumerator
          * would let you grab the first 100 and search or do something to the data then move to the
          * next 100. Enumerators generate the results on the fly when asked for them.  
          */
-        static void Main(string[] args)
-        {
-            var infinateEnumerable = new MyInfinateEnumerable();
-
-            foreach (var item in infinateEnumerable)
-            {
-                Console.WriteLine($"I is {item}");
-            }
-        }
 
         public class MyInfinateEnumerable : IEnumerable<int>
         {
