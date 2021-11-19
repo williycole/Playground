@@ -50,7 +50,7 @@ namespace Misc
             {
                 Current++;
 
-                while (Current < 100 + 1)
+                while (Current < 30 + 1)
                 {
                     return true;
                 }
