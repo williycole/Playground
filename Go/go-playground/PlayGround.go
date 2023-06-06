@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"regexp"
 	"strings"
-	"time"
+	time "time"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 	//	fmt.Println("------------------------------")
 	//	message := `
 	//**************************
-	//*    BUY NOW, SAVE 10%   *
+	//*    BUY NOW, SAVE 11%   *
 	//**************************`
 	//	CleanupMessage(message)
 	//	fmt.Println("------------------------------")
@@ -24,13 +24,25 @@ func main() {
 	//	item := GetItem(slice, 8)
 	//	println(item)
 	//	fmt.Println("------------------------------")
-	//	sliceB := []int{3, 4, 5, 6}
+	//	sliceB := []int{3, 4, 5, 6}
 	//	RemoveItem(sliceB, 1)
 	//birdCountAs := []int{3, 0, 3, 3, 2, 1, 0}
 	//birdCountsB := []int{3, 0, 5, 1, 0, 4, 1, 0, 3, 4, 3, 0, 8, 0}
 	//BirdsInWeek(birdCountsB, 1)
 	//BirdsInWeek(birdCountAs, 1)
-	GenerateWandEnergy()
+	//GenerateWandEnergy() //layers := []string{"sauce", "noodles", "sauce", "meat", "mozzarella", "noodles"}
+	//PreparationTime(layers, 3) // => 18
+	//PreparationTime(layers, 0) // => 12
+	Quantities([]string{"sauce", "noodles", "sauce", "meat", "mozzarella", "noodles"}) // => 100, 0.4
+	//friendsList := []string{"noodles", "sauce", "mozzarella", "kampot pepper"}
+	//myList := []string{"noodles", "meat", "sauce", "mozzarella", "?"}
+	// myList => []string{"noodles", "meat", "sauce", "mozzarella", "kampot pepper"}
+	//AddSecretIngredient(friendsList, myList)
+	//quantities := []float64{1.2, 3.6, 10.5}
+	//ScaleRecipe(quantities, 4) //=> []float64{ 2.4, 7.2, 21 }
+	//quantities2 := []float64{0.6, 300, 1, 0.5, 50, 0.1, 100}
+	// expected: []float64{0.9, 450, 1.5, 0.75, 75, 0.15, 150}
+	//ScaleRecipe(quantities2, 3)
 }
 
 func CleanupMessage(oldMsg string) string {
@@ -264,9 +276,52 @@ func ShuffleAnimals() []string {
 }
 
 func PreparationTime(layers []string, prepTime int) int {
+	tm := 0
 	if prepTime == 0 {
-		return 2 * len(layers)
+		tm = 2 * len(layers)
+		fmt.Printf("tm: %d\n", tm)
+		return tm
 	} else {
-		return prepTime * len(layers)
+		tm = prepTime * len(layers)
+		fmt.Printf("tm: %d\n", tm)
+		return tm
 	}
+}
+
+func Quantities(layers []string) (int, float64) {
+	noodles := 0
+	sauce := 0.0
+
+	for _, layer := range layers {
+		switch layer {
+		case "noodles":
+			noodles += 50
+		case "sauce":
+			sauce += 0.2
+		}
+	}
+
+	return noodles, sauce
+}
+
+func AddSecretIngredient(friendsList []string, myList []string) []string {
+	friendsItem := friendsList[len(friendsList)-1]
+	index := len(myList) - 1
+	myList[index] = friendsItem
+	//fmt.Printf("myNewList: %s\n", myList)
+	return myList
+}
+
+func ScaleRecipe(quantities []float64, servings int) []float64 {
+	fmt.Printf("Quantities: %.2f\n", quantities)
+	var scaledRecipe []float64
+	defaultServings := 2.00
+	servingsFloat := float64(servings)
+	for i := range quantities {
+		twoDecimalsFactor := math.Pow(10, 2)
+		scaledRecipe = append(scaledRecipe,
+			math.Round(((quantities[i]*servingsFloat)/defaultServings)*twoDecimalsFactor)/twoDecimalsFactor)
+	}
+	fmt.Printf("ScaledQuantities: %.2f\n", quantities)
+	return scaledRecipe
 }
