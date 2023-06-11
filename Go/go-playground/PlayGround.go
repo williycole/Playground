@@ -325,3 +325,14 @@ func ScaleRecipe(quantities []float64, servings int) []float64 {
 	fmt.Printf("ScaledQuantities: %.2f\n", quantities)
 	return scaledRecipe
 }
+
+func Units() map[string]int {
+	unitsMap := make(map[string]int)
+	unitsMap["quarter_of_a_dozen"] = 3
+	unitsMap["half_of_a_dozen"] = 6
+	unitsMap["dozen"] = 12
+	unitsMap["small_gross"] = 120
+	unitsMap["gross"] = 144
+	unitsMap["great_gross"] = 1728
+	return unitsMap
+}
